@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Fluides",
+			"Path": "..\\Source\\Fluides.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "FluidesEditor",
+			"Path": "..\\Source\\FluidesEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
