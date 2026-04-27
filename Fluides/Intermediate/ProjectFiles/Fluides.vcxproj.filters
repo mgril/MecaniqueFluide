@@ -11,6 +11,7 @@
     <None Include="..\..\Source\FluidesEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.vsconfig" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -29,6 +30,12 @@
     <Filter Include="Source\Fluides">
       <UniqueIdentifier>{69E61ED5-0150-3D40-AF35-F1E7BA5D9A5C}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Fluides\FluideManager.cpp">
+      <Filter>Source\Fluides</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Fluides\FluideManager.h">
+      <Filter>Source\Fluides</Filter>
+    </ClInclude>
     <None Include="..\..\Source\Fluides\Fluides.Build.cs">
       <Filter>Source\Fluides</Filter>
     </None>

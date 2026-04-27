@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FluidesModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f5f20236b0bef1e81f2fd7e9f1db20eddb24e37")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f37005972848c1c22725b94787e53ebafbea97d")]
 [assembly: System.Reflection.AssemblyProductAttribute("FluidesModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FluidesModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
