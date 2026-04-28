@@ -7007,23 +7007,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\minig\\.nuget\\packages\\": {},
+    "C:\\Users\\AutoRazer\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\minig\\Documents\\Charles project\\MecaniqueFluide\\Fluides\\Intermediate\\Build\\BuildRulesProjects\\FluidesModuleRules\\FluidesModuleRules.csproj",
+      "projectUniqueName": "C:\\Users\\AutoRazer\\Documents\\GitHub\\MecaniqueFluide\\Fluides\\Intermediate\\Build\\BuildRulesProjects\\FluidesModuleRules\\FluidesModuleRules.csproj",
       "projectName": "FluidesModuleRules",
-      "projectPath": "C:\\Users\\minig\\Documents\\Charles project\\MecaniqueFluide\\Fluides\\Intermediate\\Build\\BuildRulesProjects\\FluidesModuleRules\\FluidesModuleRules.csproj",
-      "packagesPath": "C:\\Users\\minig\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\minig\\Documents\\Charles project\\MecaniqueFluide\\Fluides\\Intermediate\\Build\\BuildRulesProjects\\FluidesModuleRules\\obj\\",
+      "projectPath": "C:\\Users\\AutoRazer\\Documents\\GitHub\\MecaniqueFluide\\Fluides\\Intermediate\\Build\\BuildRulesProjects\\FluidesModuleRules\\FluidesModuleRules.csproj",
+      "packagesPath": "C:\\Users\\AutoRazer\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\AutoRazer\\Documents\\GitHub\\MecaniqueFluide\\Fluides\\Intermediate\\Build\\BuildRulesProjects\\FluidesModuleRules\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\minig\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\AutoRazer\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -7032,6 +7032,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -7087,7 +7088,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -16,10 +16,8 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
-struct FFluid;
-
 // ********** Begin ScriptStruct FFluid ************************************************************
-#define FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_14_GENERATED_BODY \
+#define FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_14_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FFluid_Statics; \
 	FLUIDES_API static class UScriptStruct* StaticStruct();
 
@@ -28,7 +26,7 @@ struct FFluid;
 // ********** End ScriptStruct FFluid **************************************************************
 
 // ********** Begin ScriptStruct FFluidParticle ****************************************************
-#define FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_40_GENERATED_BODY \
+#define FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_51_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FFluidParticle_Statics; \
 	FLUIDES_API static class UScriptStruct* StaticStruct();
 
@@ -37,13 +35,9 @@ struct FFluidParticle;
 // ********** End ScriptStruct FFluidParticle ******************************************************
 
 // ********** Begin Class AFluideManager ***********************************************************
-#define FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_52_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execInitFluid);
-
-
 FLUIDES_API UClass* Z_Construct_UClass_AFluideManager_NoRegister();
 
-#define FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_52_INCLASS_NO_PURE_DECLS \
+#define FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_64_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAFluideManager(); \
 	friend struct Z_Construct_UClass_AFluideManager_Statics; \
@@ -54,7 +48,7 @@ public: \
 	DECLARE_SERIALIZER(AFluideManager)
 
 
-#define FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_52_ENHANCED_CONSTRUCTORS \
+#define FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_64_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	AFluideManager(AFluideManager&&) = delete; \
 	AFluideManager(const AFluideManager&) = delete; \
@@ -64,13 +58,12 @@ public: \
 	NO_API virtual ~AFluideManager();
 
 
-#define FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_49_PROLOG
-#define FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_52_GENERATED_BODY \
+#define FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_61_PROLOG
+#define FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_64_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_52_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_52_INCLASS_NO_PURE_DECLS \
-	FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_52_ENHANCED_CONSTRUCTORS \
+	FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_64_INCLASS_NO_PURE_DECLS \
+	FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_64_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -80,6 +73,6 @@ class AFluideManager;
 // ********** End Class AFluideManager *************************************************************
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h
+#define CURRENT_FILE_ID FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

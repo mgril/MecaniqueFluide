@@ -5,69 +5,93 @@
       <Configuration>Invalid</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Invalid|arm64">
+      <Configuration>Invalid</Configuration>
+      <Platform>arm64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="DebugGame|x64">
       <Configuration>DebugGame</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Win64_arm64_DebugGame|x64">
-      <Configuration>Win64_arm64_DebugGame</Configuration>
-      <Platform>x64</Platform>
+    <ProjectConfiguration Include="DebugGame|arm64">
+      <Configuration>DebugGame</Configuration>
+      <Platform>arm64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Win64_arm64ec_DebugGame|x64">
       <Configuration>Win64_arm64ec_DebugGame</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Win64_arm64ec_DebugGame|arm64">
+      <Configuration>Win64_arm64ec_DebugGame</Configuration>
+      <Platform>arm64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="DebugGame_Editor|x64">
       <Configuration>DebugGame_Editor</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Win64_arm64_DebugGame_Editor|x64">
-      <Configuration>Win64_arm64_DebugGame_Editor</Configuration>
-      <Platform>x64</Platform>
+    <ProjectConfiguration Include="DebugGame_Editor|arm64">
+      <Configuration>DebugGame_Editor</Configuration>
+      <Platform>arm64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Win64_arm64ec_DebugGame_Editor|x64">
       <Configuration>Win64_arm64ec_DebugGame_Editor</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Win64_arm64ec_DebugGame_Editor|arm64">
+      <Configuration>Win64_arm64ec_DebugGame_Editor</Configuration>
+      <Platform>arm64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Development|x64">
       <Configuration>Development</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Win64_arm64_Development|x64">
-      <Configuration>Win64_arm64_Development</Configuration>
-      <Platform>x64</Platform>
+    <ProjectConfiguration Include="Development|arm64">
+      <Configuration>Development</Configuration>
+      <Platform>arm64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Win64_arm64ec_Development|x64">
       <Configuration>Win64_arm64ec_Development</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Win64_arm64ec_Development|arm64">
+      <Configuration>Win64_arm64ec_Development</Configuration>
+      <Platform>arm64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Development_Editor|x64">
       <Configuration>Development_Editor</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Win64_arm64_Development_Editor|x64">
-      <Configuration>Win64_arm64_Development_Editor</Configuration>
-      <Platform>x64</Platform>
+    <ProjectConfiguration Include="Development_Editor|arm64">
+      <Configuration>Development_Editor</Configuration>
+      <Platform>arm64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Win64_arm64ec_Development_Editor|x64">
       <Configuration>Win64_arm64ec_Development_Editor</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Win64_arm64ec_Development_Editor|arm64">
+      <Configuration>Win64_arm64ec_Development_Editor</Configuration>
+      <Platform>arm64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Shipping|x64">
       <Configuration>Shipping</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Win64_arm64_Shipping|x64">
-      <Configuration>Win64_arm64_Shipping</Configuration>
-      <Platform>x64</Platform>
+    <ProjectConfiguration Include="Shipping|arm64">
+      <Configuration>Shipping</Configuration>
+      <Platform>arm64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Win64_arm64ec_Shipping|x64">
       <Configuration>Win64_arm64ec_Shipping</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Win64_arm64ec_Shipping|arm64">
+      <Configuration>Win64_arm64ec_Shipping</Configuration>
+      <Platform>arm64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{72F7DE63-3D4A-3E84-B2C5-DE0A6CEBD250}</ProjectGuid>
+    <ProjectGuid>{6EEB2BC2-166F-3CF7-B6CB-285B51CD37AC}</ProjectGuid>
     <RootNamespace>Fluides</RootNamespace>
   </PropertyGroup>
   <Import Project="UECommon.props" />
@@ -91,13 +115,13 @@
       <NMakeCompileFileCommandLine>$(BuildBatchScript) Fluides Win64 DebugGame -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=x64 -WorkingDir=$(MSBuildProjectDirectory) -Files=$(SelectedFiles)</NMakeCompileFileCommandLine>
     </NMakeCompile>
   </ItemDefinitionGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_DebugGame|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGame|arm64'">
     <NMakeBuildCommandLine>$(BuildBatchScript) Fluides Win64 DebugGame -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>$(RebuildBatchScript) Fluides Win64 DebugGame -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>$(CleanBatchScript) Fluides Win64 DebugGame -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeCleanCommandLine>
     <NMakeOutput>..\..\Binaries\Win64\Fluides-Win64-DebugGamearm64.exe</NMakeOutput>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_DebugGame|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugGame|arm64'">
     <NMakeCompile>
       <NMakeCompileFileCommandLine>$(BuildBatchScript) Fluides Win64 DebugGame -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64 -WorkingDir=$(MSBuildProjectDirectory) -Files=$(SelectedFiles)</NMakeCompileFileCommandLine>
     </NMakeCompile>
@@ -124,13 +148,13 @@
       <NMakeCompileFileCommandLine>$(BuildBatchScript) FluidesEditor Win64 DebugGame -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=x64 -WorkingDir=$(MSBuildProjectDirectory) -Files=$(SelectedFiles)</NMakeCompileFileCommandLine>
     </NMakeCompile>
   </ItemDefinitionGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_DebugGame_Editor|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGame_Editor|arm64'">
     <NMakeBuildCommandLine>$(BuildBatchScript) FluidesEditor Win64 DebugGame -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>$(RebuildBatchScript) FluidesEditor Win64 DebugGame -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>$(CleanBatchScript) FluidesEditor Win64 DebugGame -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeCleanCommandLine>
     <NMakeOutput>C:\Program Files\Epic Games\UE_5.6\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGamearm64.exe</NMakeOutput>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_DebugGame_Editor|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugGame_Editor|arm64'">
     <NMakeCompile>
       <NMakeCompileFileCommandLine>$(BuildBatchScript) FluidesEditor Win64 DebugGame -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64 -WorkingDir=$(MSBuildProjectDirectory) -Files=$(SelectedFiles)</NMakeCompileFileCommandLine>
     </NMakeCompile>
@@ -157,13 +181,13 @@
       <NMakeCompileFileCommandLine>$(BuildBatchScript) Fluides Win64 Development -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=x64 -WorkingDir=$(MSBuildProjectDirectory) -Files=$(SelectedFiles)</NMakeCompileFileCommandLine>
     </NMakeCompile>
   </ItemDefinitionGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_Development|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development|arm64'">
     <NMakeBuildCommandLine>$(BuildBatchScript) Fluides Win64 Development -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>$(RebuildBatchScript) Fluides Win64 Development -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>$(CleanBatchScript) Fluides Win64 Development -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeCleanCommandLine>
     <NMakeOutput>..\..\Binaries\Win64\Fluidesarm64.exe</NMakeOutput>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_Development|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Development|arm64'">
     <NMakeCompile>
       <NMakeCompileFileCommandLine>$(BuildBatchScript) Fluides Win64 Development -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64 -WorkingDir=$(MSBuildProjectDirectory) -Files=$(SelectedFiles)</NMakeCompileFileCommandLine>
     </NMakeCompile>
@@ -190,13 +214,13 @@
       <NMakeCompileFileCommandLine>$(BuildBatchScript) FluidesEditor Win64 Development -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=x64 -WorkingDir=$(MSBuildProjectDirectory) -Files=$(SelectedFiles)</NMakeCompileFileCommandLine>
     </NMakeCompile>
   </ItemDefinitionGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_Development_Editor|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Development_Editor|arm64'">
     <NMakeBuildCommandLine>$(BuildBatchScript) FluidesEditor Win64 Development -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>$(RebuildBatchScript) FluidesEditor Win64 Development -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>$(CleanBatchScript) FluidesEditor Win64 Development -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeCleanCommandLine>
     <NMakeOutput>C:\Program Files\Epic Games\UE_5.6\Engine\Binaries\Win64\UnrealEditorarm64.exe</NMakeOutput>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_Development_Editor|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Development_Editor|arm64'">
     <NMakeCompile>
       <NMakeCompileFileCommandLine>$(BuildBatchScript) FluidesEditor Win64 Development -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64 -WorkingDir=$(MSBuildProjectDirectory) -Files=$(SelectedFiles)</NMakeCompileFileCommandLine>
     </NMakeCompile>
@@ -223,13 +247,13 @@
       <NMakeCompileFileCommandLine>$(BuildBatchScript) Fluides Win64 Shipping -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=x64 -WorkingDir=$(MSBuildProjectDirectory) -Files=$(SelectedFiles)</NMakeCompileFileCommandLine>
     </NMakeCompile>
   </ItemDefinitionGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_Shipping|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Shipping|arm64'">
     <NMakeBuildCommandLine>$(BuildBatchScript) Fluides Win64 Shipping -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeBuildCommandLine>
     <NMakeReBuildCommandLine>$(RebuildBatchScript) Fluides Win64 Shipping -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>$(CleanBatchScript) Fluides Win64 Shipping -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64</NMakeCleanCommandLine>
     <NMakeOutput>..\..\Binaries\Win64\Fluides-Win64-Shippingarm64.exe</NMakeOutput>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Win64_arm64_Shipping|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Shipping|arm64'">
     <NMakeCompile>
       <NMakeCompileFileCommandLine>$(BuildBatchScript) Fluides Win64 Shipping -Project="$(SolutionDir)Fluides.uproject" -WaitMutex -FromMsBuild -architecture=arm64 -WorkingDir=$(MSBuildProjectDirectory) -Files=$(SelectedFiles)</NMakeCompileFileCommandLine>
     </NMakeCompile>
