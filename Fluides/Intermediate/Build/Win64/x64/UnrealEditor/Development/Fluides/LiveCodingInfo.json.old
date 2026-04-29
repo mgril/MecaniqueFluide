@@ -1,0 +1,9 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.Fluides.gen.cpp.obj": [
+			"FluideManager.gen.cpp.obj",
+			"Fluides.init.gen.cpp.obj"
+		]
+	}
+}

@@ -16,23 +16,23 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
-// ********** Begin ScriptStruct FFluid ************************************************************
-#define FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_14_GENERATED_BODY \
-	friend struct Z_Construct_UScriptStruct_FFluid_Statics; \
-	FLUIDES_API static class UScriptStruct* StaticStruct();
-
-
-struct FFluid;
-// ********** End ScriptStruct FFluid **************************************************************
-
 // ********** Begin ScriptStruct FFluidParticle ****************************************************
-#define FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_51_GENERATED_BODY \
+#define FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_14_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FFluidParticle_Statics; \
 	FLUIDES_API static class UScriptStruct* StaticStruct();
 
 
 struct FFluidParticle;
 // ********** End ScriptStruct FFluidParticle ******************************************************
+
+// ********** Begin ScriptStruct FFluid ************************************************************
+#define FID_Users_AutoRazer_Documents_GitHub_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h_26_GENERATED_BODY \
+	friend struct Z_Construct_UScriptStruct_FFluid_Statics; \
+	FLUIDES_API static class UScriptStruct* StaticStruct();
+
+
+struct FFluid;
+// ********** End ScriptStruct FFluid **************************************************************
 
 // ********** Begin Class AFluideManager ***********************************************************
 FLUIDES_API UClass* Z_Construct_UClass_AFluideManager_NoRegister();

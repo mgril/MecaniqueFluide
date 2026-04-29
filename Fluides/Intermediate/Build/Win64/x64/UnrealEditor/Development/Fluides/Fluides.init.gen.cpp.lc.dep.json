@@ -1,0 +1,13 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\autorazer\\documents\\github\\mecaniquefluide\\fluides\\intermediate\\build\\win64\\unrealeditor\\inc\\fluides\\uht\\fluides.init.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\autorazer\\documents\\github\\mecaniquefluide\\fluides\\intermediate\\build\\win64\\x64\\fluideseditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\autorazer\\documents\\github\\mecaniquefluide\\fluides\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\fluides\\definitions.fluides.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

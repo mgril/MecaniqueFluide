@@ -9,109 +9,105 @@
 
 
 USTRUCT(BlueprintType)
+struct FFluidParticle
+{
+	GENERATED_BODY()
+	FVector Position = FVector::ZeroVector;  // metres
+	FVector Velocity = FVector::ZeroVector;  // metres/seconde
+	FVector Force = FVector::ZeroVector;  // acceleration m/s2
+	float   Density = 0.f;                  // kg/m3
+	float   Pressure = 0.f;                  // Pa
+	int32   FluidIndex = 0;
+};
+
+USTRUCT(BlueprintType)
 struct FFluid
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, Category = "Particles|Visuel") //need creation of dynamic material instance to change material color
+	// Visuel
+	UPROPERTY(EditAnywhere, Category = "Visuel")
 	UMaterialInterface* Material = nullptr;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Particles|Parameters")
-	int32 NumParticles = 200; // objectif 2000
+	// Physique - toutes les valeurs en unites SI (metres, kg) OBJ 2000
+	UPROPERTY(EditAnywhere, Category = "Physique")
+	int32 NumParticles = 100;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Particles|Parameters", meta = (ToolTip = "Densité au repos kg/m³ — eau=1000, huile=870"))
-	float RestDensity = 1000; // kg/m^3 water = 1000 oil 870
+	UPROPERTY(EditAnywhere, Category = "Physique",
+		meta = (ToolTip = "Densite au repos en kg/m3. Eau=1000, Huile=870"))
+	float RestDensity = 1000.f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Particles|Parameters", meta = (ToolTip = "Constante de Tait — rigidité du fluide"))
-	float TaitK = 200; // fluid rigidity
+	UPROPERTY(EditAnywhere, Category = "Physique",
+		meta = (ToolTip = "Constante de Tait. Commence à 50"))
+	float TaitK = 50.f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Particles|Parameters", meta = (ToolTip = "Viscosité µ"))
-	float Viscosity = 2; // µ
+	UPROPERTY(EditAnywhere, Category = "Physique",
+		meta = (ToolTip = "Viscosite µ. Eau=0.001, Huile=0.1"))
+	float Viscosity = 0.001f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Particles|Parameters", meta = (ToolTip = "Rayon d'influence h en mètres"))
-	float InfluenceRadius = 15; // cm
+	UPROPERTY(EditAnywhere, Category = "Physique",
+		meta = (ToolTip = "Rayon d'influence h en METRES. Commence à 0.1 taille du mesh initial"))
+	float InfluenceRadius = 0.1f;
 
-	// Interactions cross-fluide 
-	// > 1 = repulsion (immiscibilité huile/eau)
-	// < 1 = attraction entre fluides
-	UPROPERTY(EditAnywhere, Category = "Interaction", meta = (ToolTip = "Facteur de pression cross-fluide. 1=neutre, >1=immiscible"))
-	float CrossPressureFactor = 1.f;
+	UPROPERTY(EditAnywhere, Category = "Spawn",
+		meta = (ToolTip = "Décalage du centre de spawn en mètres"))
+	FVector SpawnOffset = FVector::ZeroVector;
 
-	// > 1 = freinage mutuel fort
-	// < 1 = les fluides glissent l'un sur l'autre
-	UPROPERTY(EditAnywhere, Category = "Interaction", meta = (ToolTip = "Facteur de viscosité cross-fluide"))
-	float CrossViscosityFactor = 1.f;
-
-	//  Runtime
-	float Mass = 0.f;  // calculé au démarrage
+	// Runtime — calcule au démarrage, pas éditable
+	float Mass = 0.f;
 };
-USTRUCT(BlueprintType)
-struct FFluidParticle
-{
-	GENERATED_BODY()
 
-	FVector Position = FVector::ZeroVector;
-	FVector Velocity = FVector::ZeroVector;
-	FVector Force = FVector::ZeroVector; // accumulate acceleration 
-	float Density = 0.f;
-	float Pressure = 0.f;
-	int32 FluidIndex = 0; // whose fluid is the owner
-};
 
 UCLASS()
 class FLUIDES_API AFluideManager : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
+
+public:
 	AFluideManager();
 
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 protected: 
 
-	// Called when the game starts or when spawned
+	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay() override;
-public:
-// Params 
+
+
+	// ------------ Render -------------------------------------------------
+	UPROPERTY(EditAnywhere, Category = "Visuel")
+	UStaticMesh* ParticleStaticMesh = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = "Visuel",
+		meta = (ToolTip = "Taille du mesh en metres"))
+	FVector ParticleScale = FVector(0.1f, 0.1f, 0.1f);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fluids")
 	TArray<FFluid> Fluids;
 
-	// Render
-	UPROPERTY(EditAnywhere, Category = "Particles|Render")
-	UStaticMesh* ParticleStaticMesh = nullptr;
+	//     Bounds
+	UPROPERTY(EditAnywhere, Category = "Bounds",
+		meta = (ToolTip = "Coin bas-gauche en mètres"))
+	FVector BoundsMin = FVector(-2.f, 0.f, -2.f);
 
-	UPROPERTY(VisibleAnywhere, Category = "Particles|Render")
-	UInstancedStaticMeshComponent* ParticleMesh; 
-
-	UPROPERTY(EditAnywhere, Category = "Particles|Render",
-		meta = (ToolTip = "Taille du mesh de la particule"))
-	FVector ParticleScale = FVector(1.f, 1.f, 1.f);
-
-	//Bounds
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Particles|Bounds")
-	FVector BoundsMin = FVector(-200.f, 0.f, -200.f);
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Particles|Bounds")
-	FVector BoundsMax = FVector(200.f, 0.f, 200.f);
+	UPROPERTY(EditAnywhere, Category = "Bounds",
+		meta = (ToolTip = "Coin haut-droite en mètres"))
+	FVector BoundsMax = FVector(2.f, 0.f, 2.f);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Particles|Bounds")
 	bool bDebugDrawBounds = true;
 
-	//Physic
-	UPROPERTY(EditAnywhere, Category = "Physic")
+	// Gravité en m/s2
+	UPROPERTY(EditAnywhere, Category = "Physique")
+	FVector Gravity = FVector(0.f, 0.f, -9.81f);
+
+	UPROPERTY(EditAnywhere, Category = "Physique")
 	float BoundsDamping = 0.5f;
 
-	UPROPERTY(EditAnywhere, Category = "Physic")
-	FVector Gravity = FVector(0.f, 0.f, -981.f); //cm/s2
+private:
 
 	UPROPERTY()
 	TArray<UInstancedStaticMeshComponent*> FluidISMs;
 
 	TArray<FFluidParticle> Particles;
-
-private:
 
 	// Kernel functions en m
 	FORCEINLINE float   Poly6Kernel(float r, float h);
@@ -126,7 +122,4 @@ private:
 	void HandleBounds();
 	void UpdateInstances();
 
-	// Helpers cross-fluide                   need?
-	FORCEINLINE float GetCrossPressureFactor(int32 A, int32 B)  const;
-	FORCEINLINE float GetCrossViscosityFactor(int32 A, int32 B) const;
 };

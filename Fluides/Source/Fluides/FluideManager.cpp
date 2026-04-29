@@ -12,22 +12,22 @@ AFluideManager::AFluideManager()
 	
 }
 
-// Called when the game starts or when spawned
+
 void AFluideManager::BeginPlay()
 {
 	Super::BeginPlay();
 
     if (bDebugDrawBounds)
     {
-        const FVector Center = (BoundsMin + BoundsMax) * 0.5f;
-        const FVector Extents = (BoundsMax - BoundsMin) * 0.5f;
+        const FVector Center = (BoundsMin + BoundsMax) * 0.5f *100.f;       //  *100.f conversion en cm pour unreal 
+        const FVector Extents = (BoundsMax - BoundsMin) * 0.5f * 100.f;     //  *100.f conversion en cm pour unreal 
         DrawDebugBox(GetWorld(), Center, Extents,
             FColor::Cyan, true, -1.f, 0, 2.f);
     }
+
     FluidISMs.SetNum(Fluids.Num());
     for (int32 f = 0; f < Fluids.Num(); ++f)
     {
-        // Create one ism per fluid
         FName Name = FName(*FString::Printf(TEXT("FluidISM_%d"), f));
         UInstancedStaticMeshComponent* ISM =
             NewObject<UInstancedStaticMeshComponent>(this, Name);
@@ -39,12 +39,12 @@ void AFluideManager::BeginPlay()
         ISM->SetGenerateOverlapEvents(false);
         ISM->bReceivesDecals = false;
         ISM->CastShadow = false;
+        ISM->SetCullDistances(0, 0);
 
         if (ParticleStaticMesh)       ISM->SetStaticMesh(ParticleStaticMesh);
         if (Fluids[f].Material)       ISM->SetMaterial(0, Fluids[f].Material);
 
         FluidISMs[f] = ISM;
-
         InitFluid(f);
     }
 
@@ -55,34 +55,72 @@ void AFluideManager::InitFluid(int32 FluidIdx)
 {
     FFluid& Fluid = Fluids[FluidIdx];
 
-    //Mass per prtc
-    const FVector BoxSize = BoundsMax - BoundsMin; // cm 
-    const float ContentVolum = BoxSize.X * BoxSize.Z * Fluid.InfluenceRadius; // cm 3
-    Fluid.Mass =  (ContentVolum * Fluid.RestDensity) / FMath::Max(Fluid.NumParticles, 1);
+    ////Mass per prtc
+    const FVector BoxSize = BoundsMax - BoundsMin; // m 
+    const float Volum = BoxSize.X * BoxSize.Z * ParticleScale.X ; // m3
+    const float Spacing = FMath::Sqrt(Volum / FMath::Max(Fluid.NumParticles, 1));
+    //Fluid.Mass = (Volum * Fluid.RestDensity) / FMath::Max(Fluid.NumParticles, 1);
+    Fluid.InfluenceRadius = Spacing * Fluid.InfluenceRadius;
+    const float h = Fluid.InfluenceRadius;
 
-    for (int32 i = 0; i < Fluid.NumParticles; ++i)
+    // SumW = somme réelle du kernel sur tous les voisins de grille
+    float SumW = 0.f;
+    for (int32 dx = -2; dx <= 2; ++dx)
+        for (int32 dz = -2; dz <= 2; ++dz)
+        {
+            const float Dist = FMath::Sqrt((float)(dx * dx + dz * dz)) * Spacing;
+            if (Dist < h)
+                SumW += Poly6Kernel(Dist, h);
+        }
+
+    Fluid.Mass = (SumW > 0.f )
+        ? Fluid.RestDensity / SumW
+        : 1.f;
+
+    // ---  Spawn en grille couvrant toute la boite ---------------------------
+    const int32 Cols = FMath::CeilToInt(FMath::Sqrt((float)Fluid.NumParticles));
+    const int32 Rows = FMath::CeilToInt((float)Fluid.NumParticles / Cols);
+    // Espacement adapté pour couvrir toute la boîte
+    // On répartit les particules uniformément sur X et Z
+    const float StepX = BoxSize.X / Cols;
+    const float StepZ = BoxSize.Z / Rows;
+
+    // Première particule à StepX/2 depuis le bord  grille centrée
+    const FVector Origin = FVector(
+        BoundsMin.X + StepX * 0.5f,
+        0.f,
+        BoundsMin.Z + StepZ * 0.5f
+    ) + Fluid.SpawnOffset;
+
+    int32 Spawned = 0;
+    for (int32 row = 0; row < Rows && Spawned < Fluid.NumParticles; ++row)
     {
-        // Random in bounds (plan XZ pour le 2D, Y=0)
-        FVector Pos = FVector(
-            FMath::RandRange(BoundsMin.X, BoundsMax.X),
-            0.f,
-            FMath::RandRange(BoundsMin.Z, BoundsMax.Z)
-        );
+        for (int32 col = 0; col < Cols && Spawned < Fluid.NumParticles; ++col)
+        {
+            float NoiseX = FMath::FRandRange(-StepX, StepX) * 0.1f;
+            float NoiseZ = FMath::FRandRange(-StepZ, StepZ) * 0.1f;
+            FVector Pos = Origin + FVector(col * StepX, 0.f, row * StepZ) + FVector(NoiseX, 0.f, NoiseZ);
 
-        FFluidParticle P;
-        P.Position = Pos;
-        P.Velocity = FVector::ZeroVector;
-        P.Force = FVector::ZeroVector;
-        P.Density = Fluid.RestDensity;
-        P.Pressure = 0.f;
-        P.FluidIndex = FluidIdx;
+            // Sécurité — reste dans les bounds
+            Pos.X = FMath::Clamp(Pos.X, BoundsMin.X, BoundsMax.X);
+            Pos.Z = FMath::Clamp(Pos.Z, BoundsMin.Z, BoundsMax.Z);
 
-        Particles.Add(P);
 
-        FTransform T;
-        T.SetLocation(Pos);
-        T.SetScale3D(ParticleScale);
-        FluidISMs[FluidIdx]->AddInstance(T);
+            FFluidParticle P;
+            P.Position = Pos;
+            P.Velocity = FVector::ZeroVector;
+            P.Force = FVector::ZeroVector;
+            P.Density = Fluid.RestDensity;
+            P.Pressure = 0.f;
+            P.FluidIndex = FluidIdx;
+            Particles.Add(P);
+
+            FTransform T;
+            T.SetLocation(Pos * 100.f);  // m en cm pour Unreal
+            T.SetScale3D(ParticleScale);
+            FluidISMs[FluidIdx]->AddInstance(T);
+            ++Spawned;
+        }
     }
 }
 
@@ -91,43 +129,9 @@ void AFluideManager::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
 
     if (Fluids.Num() == 0 || Particles.Num() == 0) return;
-    // Log pendant les 3 premières frames seulement
-    static int32 FrameCount = 0;
-    //if (FrameCount < 3)
-    //{
-    //    float MinD = FLT_MAX, MaxD = -FLT_MAX, AvgD = 0.f;
-    //    float MinP = FLT_MAX, MaxP = -FLT_MAX;
-    //    float MinF = FLT_MAX, MaxF = -FLT_MAX;
 
-    //    for (auto& P : Particles)
-    //    {
-    //        MinD = FMath::Min(MinD, P.Density);
-    //        MaxD = FMath::Max(MaxD, P.Density);
-    //        AvgD += P.Density;
-    //        MinP = FMath::Min(MinP, P.Pressure);
-    //        MaxP = FMath::Max(MaxP, P.Pressure);
-    //        MinF = FMath::Min(MinF, P.Force.Size());
-    //        MaxF = FMath::Max(MaxF, P.Force.Size());
-    //    }
-    //    AvgD /= Particles.Num();
-
-    //    UE_LOG(LogTemp, Warning,
-    //        TEXT("=== FRAME %d ==="), FrameCount);
-    //    UE_LOG(LogTemp, Warning,
-    //        TEXT("Density  min=%.6f  max=%.6f  avg=%.6f  | RestDensity[0]=%.6f"),
-    //        MinD, MaxD, AvgD, Fluids[0].RestDensity);
-    //    UE_LOG(LogTemp, Warning,
-    //        TEXT("Pressure min=%.2f  max=%.2f"),
-    //        MinP, MaxP);
-    //    UE_LOG(LogTemp, Warning,
-    //        TEXT("Force    min=%.2f  max=%.2f  | Gravity=%.2f"),
-    //        MinF, MaxF, Gravity.Z);
-    //    UE_LOG(LogTemp, Warning,
-    //        TEXT("Mass[0]=%.8f | h[0]=%.2f"),
-    //        Fluids[0].Mass, Fluids[0].InfluenceRadius);
-
-    //    ++FrameCount;
-    //}
+    static int32 Frame = 0;
+    
     ComputeDensity();
     ComputePressure();
     ComputeForces();
@@ -139,41 +143,28 @@ void AFluideManager::Tick(float DeltaTime)
 
 // KERNELS 
 
-float AFluideManager::Poly6Kernel(float r, float h)
+float AFluideManager::Poly6Kernel(float r, float h)                    // PDF 11-18
 {
-    // W(r,h) = (315 / 64PIh^9) * (h^2 - r^2)^3 voir pdf 13 to 15
+    // W(r,h) = (315 / 64PIh^9) * (h^2 - r^2)^3
     if (r > h) return 0.f;
 
     const float Coeff = 315.f / (64.f * PI * FMath::Pow(h, 9));
-    const float Val = (h * h) - (r * r);
-    return Coeff * Val * Val * Val;
+    const float V = (h * h) - (r * r);
+    return Coeff * V * V * V;
 }
 
 
-float AFluideManager::SpikyKernelDerivative(float r, float h) // gradient de pression voir pdf p 44
+float AFluideManager::SpikyKernelDerivative(float r, float h)          // PDF 44
 {
     // dSpiky = -(45 / PIh^6) * (h - r)^2
     if (r > h || r <= 0.f) return 0.f;
 
     const float Coeff = -45.f / (PI * FMath::Pow(h, 6));
-    const float Val = (h - r);
-    return Coeff * Val * Val;
+    const float V = (h - r);
+    return Coeff * V * V;
 }
-float AFluideManager::GetCrossPressureFactor(int32 A, int32 B) const
-{
-    if (A == B) return 1.f;
-    // Moyenne geometrique : plus stable que la moyenne arithmetique
-    // pour des facteurs très différents (ex: 1.0 et 5.0)
-    return FMath::Sqrt(Fluids[A].CrossPressureFactor
-                     * Fluids[B].CrossPressureFactor);
-}
-float AFluideManager::GetCrossViscosityFactor(int32 A, int32 B) const
-{
-    if (A == B) return 1.f;
-    return FMath::Sqrt(Fluids[A].CrossViscosityFactor
-        * Fluids[B].CrossViscosityFactor);
-}
-void AFluideManager::ComputeDensity()
+
+void AFluideManager::ComputeDensity()                                  // PDF 22
 {
     for (int32 i = 0; i < Particles.Num(); ++i)
     {
@@ -191,87 +182,81 @@ void AFluideManager::ComputeDensity()
                 * Poly6Kernel(DistM, hEff);
         }
 
-        // / 0 imposs
-        const float MinDensity = Fluids[Particles[i].FluidIndex].RestDensity * 0.01f;
-        Particles[i].Density = FMath::Max(Density, MinDensity);
+        Particles[i].Density = FMath::Max(Density,
+            Fluids[Particles[i].FluidIndex].RestDensity * 0.01f);
     }
+
+
 }
-void AFluideManager::ComputePressure()
+void AFluideManager::ComputePressure()                                 // PDF 26
 {
     for (FFluidParticle& P : Particles)
     {
         const FFluid& F = Fluids[P.FluidIndex];
         const float Ratio = P.Density / F.RestDensity;
-        P.Pressure = F.TaitK * (FMath::Pow(Ratio, 7.f) - 1.f);
+        // Max(0)  : pression nulle quand d_i <= d0
+        // evite l'attraction qui colle les particules dans les coins // PDF 28
+        P.Pressure = FMath::Max(0.f, F.TaitK * (FMath::Pow(Ratio, 7.f) - 1.f));
     }
 }
-void AFluideManager::ComputeForces()
+void AFluideManager::ComputeForces()                                   // PDF 49 77 80
 {
     for (int32 i = 0; i < Particles.Num(); ++i)
     {
         const int32   Fi = Particles[i].FluidIndex;
         const float   hi = Fluids[Fi].InfluenceRadius;
+        const float di = Particles[i].Density;
+        const float pi = Particles[i].Pressure;
 
         FVector PressureForce = FVector::ZeroVector;
         FVector ViscosityForce = FVector::ZeroVector;
 
         for (int32 j = 0; j < Particles.Num(); ++j)
         {
-            if (i == j) continue;
-
+            if (i == j) continue; 
             const int32 Fj = Particles[j].FluidIndex;
             const float hj = Fluids[Fj].InfluenceRadius;
             const float hEff = (hi + hj) * 0.5f;
 
-            const FVector DirCm = Particles[i].Position - Particles[j].Position;
-            const float   Dist = DirCm.Size();
+            const FVector Dir =Particles[j].Position - Particles[i].Position; 
+            const float   Dist = Dir.Size();
 
             if (Dist <= 0.f || Dist > hEff) continue;
 
-            const FVector UnitDir = DirCm.GetSafeNormal();
+            const FVector UnitDir = Dir / Dist;
             const float   dW = SpikyKernelDerivative(Dist, hEff);
+            const float   mj = Fluids[Fj].Mass;
+            const float   dj = Particles[j].Density;
+            const float   pj = Particles[j].Pressure;
 
-            //    Pression
-            const float CrossP = GetCrossPressureFactor(Fi, Fj);
+            if (pi <= 0.f && pj <= 0.f) continue;
+            // Pression — page 49
+            PressureForce -= mj * (pi / (di * di) + pj / (dj * dj))
+                * dW * UnitDir;
 
-            const float PressureTerm = CrossP * Fluids[Fj].Mass
-                * (Particles[i].Pressure / FMath::Square(Particles[i].Density)
-                    + Particles[j].Pressure / FMath::Square(Particles[j].Density));
-
-            PressureForce -= PressureTerm * dW * UnitDir;
-
-            //    Viscosité 
-            // µ effectif = moyenne des viscosités * facteur cross
-            const float CrossV = GetCrossViscosityFactor(Fi, Fj);
-            const float MuEff = (Fluids[Fi].Viscosity + Fluids[Fj].Viscosity)
-                * 0.5f * CrossV;
-
+            // Viscosité — page 77
             const FVector VelDiff = Particles[j].Velocity - Particles[i].Velocity;
             const float   Denom = Dist * Dist + 0.01f * hEff * hEff;
-            const float   ViscTerm = (Fluids[Fj].Mass / Particles[j].Density)
-                * (dW * Dist / Denom);
-
-            ViscosityForce += 2.f * MuEff * ViscTerm * VelDiff;
+            ViscosityForce += 2.f * (mj / dj) * VelDiff * (dW * Dist / Denom);
         }
 
-        // Gravity — accélération directe (pas de /masse car deja en cm/s^2)
-        Particles[i].Force = (PressureForce / Particles[i].Density)
-            + ViscosityForce
+        // Total Velocity page 80
+        Particles[i].Force = PressureForce 
+            + (Fluids[Fi].Viscosity * ViscosityForce / di)
             + Gravity;
     }
 }
 
-void AFluideManager::Integrate(float DeltaTime)
+void AFluideManager::Integrate(float DeltaTime)                        // PDF 80
 {
+    DeltaTime = FMath::Min(DeltaTime, 0.008f);
     for (FFluidParticle& P : Particles)
     {
-        // Force ici = accélération (m/s^2)
         P.Velocity += P.Force * DeltaTime;
         P.Velocity.Y = 0.f;                        // verrouille Y (2D)
 
-        // est ce que la velocite dans unreal est en m/s ou cm par seconde ?????? si m / s il mnque un *100
         P.Position += P.Velocity * DeltaTime ;
-        P.Position.Y = 0.f;
+        P.Position.Y = 0.f;                        // verrouille Y (2D)
     }
 }
 
@@ -279,44 +264,53 @@ void AFluideManager::HandleBounds()
 {
     for (FFluidParticle& P : Particles)
     {
+        // Mur gauche
         if (P.Position.X < BoundsMin.X)
         {
-            P.Position.X = BoundsMin.X; P.Velocity.X *= -BoundsDamping;
+            P.Position.X = BoundsMin.X;
+            P.Velocity.X = FMath::Abs(P.Velocity.X) * BoundsDamping;
+            P.Velocity.Z *= BoundsDamping;  // friction sur la paroi
         }
+        // Mur droit
         if (P.Position.X > BoundsMax.X)
         {
-            P.Position.X = BoundsMax.X; P.Velocity.X *= -BoundsDamping;
+            P.Position.X = BoundsMax.X;
+            P.Velocity.X = -FMath::Abs(P.Velocity.X) * BoundsDamping;
+            P.Velocity.Z *= BoundsDamping;
         }
+        // Sol
         if (P.Position.Z < BoundsMin.Z)
         {
-            P.Position.Z = BoundsMin.Z; P.Velocity.Z *= -BoundsDamping;
+            P.Position.Z = BoundsMin.Z;
+            P.Velocity.Z = FMath::Abs(P.Velocity.Z) * BoundsDamping;
+            P.Velocity.X *= BoundsDamping;  // friction sur le sol
         }
+        // Plafond
         if (P.Position.Z > BoundsMax.Z)
         {
-            P.Position.Z = BoundsMax.Z; P.Velocity.Z *= -BoundsDamping;
+            P.Position.Z = BoundsMax.Z;
+            P.Velocity.Z = -FMath::Abs(P.Velocity.Z) * BoundsDamping;
+            P.Velocity.X *= BoundsDamping;
         }
     }
 }
 
 void AFluideManager::UpdateInstances()
 {
-    // Compteur d'instance local par fluide
-    TArray<int32> InstanceCounters;
-    InstanceCounters.SetNumZeroed(Fluids.Num());
+    TArray<int32> Counters;
+    Counters.SetNumZeroed(Fluids.Num());
 
     for (int32 i = 0; i < Particles.Num(); ++i)
     {
         const int32 f = Particles[i].FluidIndex;
-        const int32 ii = InstanceCounters[f]++;
+        const int32 ii = Counters[f]++;
 
         FTransform T;
-        T.SetLocation(Particles[i].Position);
+        T.SetLocation(Particles[i].Position * 100.f);
         T.SetScale3D(ParticleScale);
 
-        const bool bMarkRenderDirty =
-            (ii == FluidISMs[f]->GetInstanceCount() - 1);
-
-        FluidISMs[f]->UpdateInstanceTransform(ii, T, false, bMarkRenderDirty);
+        const bool bDirty = (ii == FluidISMs[f]->GetInstanceCount() - 1);
+        FluidISMs[f]->UpdateInstanceTransform(ii, T, false, bDirty);
     }
 }
 
