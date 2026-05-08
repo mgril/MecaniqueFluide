@@ -1,12 +1,12 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\autorazer\\documents\\github\\mecaniquefluide\\fluides\\source\\fluides\\fluides.cpp",
+        "Source": "c:\\users\\minig\\documents\\charles project\\mecaniquefluide\\fluides\\source\\fluides\\fluides.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\users\\autorazer\\documents\\github\\mecaniquefluide\\fluides\\intermediate\\build\\win64\\x64\\fluideseditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.h.pch",
+        "PCH": "c:\\users\\minig\\documents\\charles project\\mecaniquefluide\\fluides\\intermediate\\build\\win64\\x64\\fluideseditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.valexpapi.cpp20.h.pch",
         "Includes": [
-            "c:\\users\\autorazer\\documents\\github\\mecaniquefluide\\fluides\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\fluides\\definitions.fluides.h",
-            "c:\\users\\autorazer\\documents\\github\\mecaniquefluide\\fluides\\source\\fluides\\fluides.h"
+            "c:\\users\\minig\\documents\\charles project\\mecaniquefluide\\fluides\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\fluides\\definitions.fluides.h",
+            "c:\\users\\minig\\documents\\charles project\\mecaniquefluide\\fluides\\source\\fluides\\fluides.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
