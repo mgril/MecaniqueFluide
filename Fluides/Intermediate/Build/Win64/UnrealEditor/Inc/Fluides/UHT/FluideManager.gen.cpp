@@ -131,9 +131,10 @@ struct Z_Construct_UScriptStruct_FFluid_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_InfluenceRadius_MetaData[] = {
 		{ "Category", "Physique" },
+		{ "ClampMin", "0.001" },
 		{ "ModuleRelativePath", "FluideManager.h" },
 #if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Rayon d'influence h en METRES. Commence \xef\xbf\xbd 0.1 taille du mesh initial" },
+		{ "ToolTip", "Rayon d'influence h en metres" },
 #endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_SpawnOffset_MetaData[] = {
@@ -255,6 +256,22 @@ struct Z_Construct_UClass_AFluideManager_Statics
 		{ "ToolTip", "Taille du mesh en metres" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bAutoParticleScale_MetaData[] = {
+		{ "Category", "Visuel" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Adapte la taille visuelle des particules a leur espacement initial" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ParticleScaleSpacingRatio_MetaData[] = {
+		{ "Category", "Visuel" },
+		{ "ClampMax", "1.0" },
+		{ "ClampMin", "0.05" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Diametre visuel relatif a l'espacement initial" },
+#endif
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Fluids_MetaData[] = {
 		{ "Category", "Fluids" },
 		{ "ModuleRelativePath", "FluideManager.h" },
@@ -277,7 +294,7 @@ struct Z_Construct_UClass_AFluideManager_Statics
 		{ "Category", "Particles|Bounds" },
 		{ "ModuleRelativePath", "FluideManager.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Gravity_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bUseGravity_MetaData[] = {
 		{ "Category", "Physique" },
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "// Gravit\xef\xbf\xbd en m/s2\n" },
@@ -287,8 +304,72 @@ struct Z_Construct_UClass_AFluideManager_Statics
 		{ "ToolTip", "Gravit\xef\xbf\xbd en m/s2" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_GravityScale_MetaData[] = {
+		{ "Category", "Physique" },
+		{ "ClampMin", "0.0" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Multiplicateur applique a la gravite" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Gravity_MetaData[] = {
+		{ "Category", "Physique" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BoundsDamping_MetaData[] = {
 		{ "Category", "Physique" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MaxSimulationStep_MetaData[] = {
+		{ "Category", "Physique|Integration" },
+		{ "ClampMax", "0.02" },
+		{ "ClampMin", "0.0005" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Pas maximal de simulation en secondes" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MaxSimulationSubsteps_MetaData[] = {
+		{ "Category", "Physique|Integration" },
+		{ "ClampMax", "32" },
+		{ "ClampMin", "1" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Nombre maximal de sous-pas par frame" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MaxVelocity_MetaData[] = {
+		{ "Category", "Physique|Integration" },
+		{ "ClampMin", "0.0" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Vitesse maximale en m/s. 0 desactive la limite" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WarmupSteps_MetaData[] = {
+		{ "Category", "Physique|Initialisation" },
+		{ "ClampMin", "0" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Nombre de pas simules avant le debut visible" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_WarmupStep_MetaData[] = {
+		{ "Category", "Physique|Initialisation" },
+		{ "ClampMax", "0.02" },
+		{ "ClampMin", "0.0005" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Pas de temps du warmup en secondes" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bDebugFluidValues_MetaData[] = {
+		{ "Category", "Debug" },
+		{ "ModuleRelativePath", "FluideManager.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DebugFrameInterval_MetaData[] = {
+		{ "Category", "Debug" },
+		{ "ClampMin", "1" },
 		{ "ModuleRelativePath", "FluideManager.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_FluidISMs_MetaData[] = {
@@ -298,14 +379,28 @@ struct Z_Construct_UClass_AFluideManager_Statics
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ParticleStaticMesh;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_ParticleScale;
+	static void NewProp_bAutoParticleScale_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bAutoParticleScale;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ParticleScaleSpacingRatio;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_Fluids_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_Fluids;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_BoundsMin;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_BoundsMax;
 	static void NewProp_bDebugDrawBounds_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bDebugDrawBounds;
+	static void NewProp_bUseGravity_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bUseGravity;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_GravityScale;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_Gravity;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_BoundsDamping;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_MaxSimulationStep;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_MaxSimulationSubsteps;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_MaxVelocity;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_WarmupSteps;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_WarmupStep;
+	static void NewProp_bDebugFluidValues_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bDebugFluidValues;
+	static const UECodeGen_Private::FIntPropertyParams NewProp_DebugFrameInterval;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_FluidISMs_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_FluidISMs;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -317,8 +412,14 @@ struct Z_Construct_UClass_AFluideManager_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_ParticleStaticMesh = { "ParticleStaticMesh", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, ParticleStaticMesh), Z_Construct_UClass_UStaticMesh_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ParticleStaticMesh_MetaData), NewProp_ParticleStaticMesh_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_ParticleScale = { "ParticleScale", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, ParticleScale), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ParticleScale_MetaData), NewProp_ParticleScale_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_Fluids_Inner = { "Fluids", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FFluid, METADATA_PARAMS(0, nullptr) }; // 1230956564
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_Fluids = { "Fluids", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, Fluids), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Fluids_MetaData), NewProp_Fluids_MetaData) }; // 1230956564
+void Z_Construct_UClass_AFluideManager_Statics::NewProp_bAutoParticleScale_SetBit(void* Obj)
+{
+	((AFluideManager*)Obj)->bAutoParticleScale = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_bAutoParticleScale = { "bAutoParticleScale", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AFluideManager), &Z_Construct_UClass_AFluideManager_Statics::NewProp_bAutoParticleScale_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bAutoParticleScale_MetaData), NewProp_bAutoParticleScale_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_ParticleScaleSpacingRatio = { "ParticleScaleSpacingRatio", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, ParticleScaleSpacingRatio), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ParticleScaleSpacingRatio_MetaData), NewProp_ParticleScaleSpacingRatio_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_Fluids_Inner = { "Fluids", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FFluid, METADATA_PARAMS(0, nullptr) }; // 366818603
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_Fluids = { "Fluids", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, Fluids), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Fluids_MetaData), NewProp_Fluids_MetaData) }; // 366818603
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_BoundsMin = { "BoundsMin", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, BoundsMin), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BoundsMin_MetaData), NewProp_BoundsMin_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_BoundsMax = { "BoundsMax", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, BoundsMax), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BoundsMax_MetaData), NewProp_BoundsMax_MetaData) };
 void Z_Construct_UClass_AFluideManager_Statics::NewProp_bDebugDrawBounds_SetBit(void* Obj)
@@ -326,20 +427,48 @@ void Z_Construct_UClass_AFluideManager_Statics::NewProp_bDebugDrawBounds_SetBit(
 	((AFluideManager*)Obj)->bDebugDrawBounds = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_bDebugDrawBounds = { "bDebugDrawBounds", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AFluideManager), &Z_Construct_UClass_AFluideManager_Statics::NewProp_bDebugDrawBounds_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bDebugDrawBounds_MetaData), NewProp_bDebugDrawBounds_MetaData) };
+void Z_Construct_UClass_AFluideManager_Statics::NewProp_bUseGravity_SetBit(void* Obj)
+{
+	((AFluideManager*)Obj)->bUseGravity = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_bUseGravity = { "bUseGravity", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AFluideManager), &Z_Construct_UClass_AFluideManager_Statics::NewProp_bUseGravity_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bUseGravity_MetaData), NewProp_bUseGravity_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_GravityScale = { "GravityScale", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, GravityScale), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_GravityScale_MetaData), NewProp_GravityScale_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_Gravity = { "Gravity", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, Gravity), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Gravity_MetaData), NewProp_Gravity_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_BoundsDamping = { "BoundsDamping", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, BoundsDamping), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BoundsDamping_MetaData), NewProp_BoundsDamping_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_MaxSimulationStep = { "MaxSimulationStep", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, MaxSimulationStep), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxSimulationStep_MetaData), NewProp_MaxSimulationStep_MetaData) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_MaxSimulationSubsteps = { "MaxSimulationSubsteps", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, MaxSimulationSubsteps), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxSimulationSubsteps_MetaData), NewProp_MaxSimulationSubsteps_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_MaxVelocity = { "MaxVelocity", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, MaxVelocity), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MaxVelocity_MetaData), NewProp_MaxVelocity_MetaData) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_WarmupSteps = { "WarmupSteps", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, WarmupSteps), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WarmupSteps_MetaData), NewProp_WarmupSteps_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_WarmupStep = { "WarmupStep", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, WarmupStep), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_WarmupStep_MetaData), NewProp_WarmupStep_MetaData) };
+void Z_Construct_UClass_AFluideManager_Statics::NewProp_bDebugFluidValues_SetBit(void* Obj)
+{
+	((AFluideManager*)Obj)->bDebugFluidValues = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_bDebugFluidValues = { "bDebugFluidValues", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AFluideManager), &Z_Construct_UClass_AFluideManager_Statics::NewProp_bDebugFluidValues_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bDebugFluidValues_MetaData), NewProp_bDebugFluidValues_MetaData) };
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_DebugFrameInterval = { "DebugFrameInterval", nullptr, (EPropertyFlags)0x0020080000000001, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, DebugFrameInterval), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DebugFrameInterval_MetaData), NewProp_DebugFrameInterval_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_FluidISMs_Inner = { "FluidISMs", nullptr, (EPropertyFlags)0x0000000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UInstancedStaticMeshComponent_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AFluideManager_Statics::NewProp_FluidISMs = { "FluidISMs", nullptr, (EPropertyFlags)0x0040008000000008, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AFluideManager, FluidISMs), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FluidISMs_MetaData), NewProp_FluidISMs_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AFluideManager_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_ParticleStaticMesh,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_ParticleScale,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_bAutoParticleScale,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_ParticleScaleSpacingRatio,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_Fluids_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_Fluids,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_BoundsMin,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_BoundsMax,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_bDebugDrawBounds,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_bUseGravity,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_GravityScale,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_Gravity,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_BoundsDamping,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_MaxSimulationStep,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_MaxSimulationSubsteps,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_MaxVelocity,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_WarmupSteps,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_WarmupStep,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_bDebugFluidValues,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_DebugFrameInterval,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_FluidISMs_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AFluideManager_Statics::NewProp_FluidISMs,
 };
@@ -377,19 +506,19 @@ AFluideManager::~AFluideManager() {}
 // ********** End Class AFluideManager *************************************************************
 
 // ********** Begin Registration *******************************************************************
-struct Z_CompiledInDeferFile_FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_Statics
+struct Z_CompiledInDeferFile_FID_Users_Mat_Game_Desktop_Game_Dev_Projet_M2_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_Statics
 {
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
 		{ FFluidParticle::StaticStruct, Z_Construct_UScriptStruct_FFluidParticle_Statics::NewStructOps, TEXT("FluidParticle"), &Z_Registration_Info_UScriptStruct_FFluidParticle, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FFluidParticle), 2605202513U) },
-		{ FFluid::StaticStruct, Z_Construct_UScriptStruct_FFluid_Statics::NewStructOps, TEXT("Fluid"), &Z_Registration_Info_UScriptStruct_FFluid, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FFluid), 1230956564U) },
+		{ FFluid::StaticStruct, Z_Construct_UScriptStruct_FFluid_Statics::NewStructOps, TEXT("Fluid"), &Z_Registration_Info_UScriptStruct_FFluid, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FFluid), 366818603U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AFluideManager, AFluideManager::StaticClass, TEXT("AFluideManager"), &Z_Registration_Info_UClass_AFluideManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AFluideManager), 2711763872U) },
+		{ Z_Construct_UClass_AFluideManager, AFluideManager::StaticClass, TEXT("AFluideManager"), &Z_Registration_Info_UClass_AFluideManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AFluideManager), 3787583993U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_714557178(TEXT("/Script/Fluides"),
-	Z_CompiledInDeferFile_FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_Statics::ClassInfo),
-	Z_CompiledInDeferFile_FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_minig_Documents_Charles_project_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_Statics::ScriptStructInfo),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Mat_Game_Desktop_Game_Dev_Projet_M2_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_3205169827(TEXT("/Script/Fluides"),
+	Z_CompiledInDeferFile_FID_Users_Mat_Game_Desktop_Game_Dev_Projet_M2_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Mat_Game_Desktop_Game_Dev_Projet_M2_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_Statics::ClassInfo),
+	Z_CompiledInDeferFile_FID_Users_Mat_Game_Desktop_Game_Dev_Projet_M2_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Mat_Game_Desktop_Game_Dev_Projet_M2_MecaniqueFluide_Fluides_Source_Fluides_FluideManager_h__Script_Fluides_Statics::ScriptStructInfo),
 	nullptr, 0);
 // ********** End Registration *********************************************************************
 
