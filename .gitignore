@@ -1,4 +1,10 @@
 # Unreal Engine generated folders
+Fluides/Binaries/
+Fluides/Binaries/**
+Fluides/Intermediate/
+Fluides/Intermediate/**
+Fluides/Saved/
+Fluides/Saved/**
 **/Binaries/**
 **/Build/**
 **/DerivedDataCache/**
@@ -59,3 +65,6 @@ SourceArt/**/*.tga
 # OS noise
 Thumbs.db
 .DS_Store
+/Fluides/Binaries
+/Fluides/Intermediate
+/Fluides/Saved
